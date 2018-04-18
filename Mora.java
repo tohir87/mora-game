@@ -12,6 +12,11 @@ public class Mora {
 		return this.min + randomNum.nextInt(this.max);
 	}
 	
+	public void init() {
+		this.evenScore = 0;
+		this.oddScore = 0;
+	}
+	
 	public boolean selectPlayerType(){
 		
 		System.out.println("Select player of choice");
@@ -45,7 +50,11 @@ public class Mora {
 		boolean state = false;
 		if (getEvenScore() < 6 && getOddScore() < 6) {
 			state = true;
+		}else{
+			// reset scores
+			this.init();
 		}
+		
 		return state;
 	}
 	
@@ -122,26 +131,41 @@ public class Mora {
 		if (this.player == 1) {
 			if (getEvenScore() > getOddScore()) {
 				System.out.println("The Computer Won");
-				this.winHistory[2][round] = round;
+				this.computerWonHistory[round] = 1;
+				System.out.println("computer won game round" + round);
 			}else{
 				System.out.println("The Human Won");
-				this.winHistory[1][round] = round;
+				this.playerWonHistory[round] = 1;
+				System.out.println("human won game round" + round);
 			}
 		}else{
 			if (getEvenScore() > getOddScore()) {
 				System.out.println("The Human Won");
-				this.winHistory[1][round] = round;
+				this.playerWonHistory[round] = 1;
+				System.out.println("human won game round" + round);
 			}else{
 				System.out.println("The Computer Won");
-				this.winHistory[2][round] = round;
+				this.computerWonHistory[round] = 1;
+				System.out.println("computer won game round" + round);
 			}
 		}
 	}
 	
 	public void displayGameHistory(){
-		System.out.printf("\nTotal Number of Round played: %d", this.winHistory[1].length + this.winHistory[2].length );
-		System.out.printf("\nNumber of rounds won: %d", this.winHistory[1].length);
-		System.out.printf("\nNumber of rounds loss: %d", this.winHistory[2].length);
+		int totalround = 0;
+		int roundwon = 0;
+		int roundlost = 0;
+	    for (int element : this.playerWonHistory) {
+	    	totalround += element;
+	    	roundwon += element;
+	    }
+	    for (int element : this.computerWonHistory) {
+	    	totalround += element;
+	    	roundlost += element;
+	    }
+		System.out.printf("\nTotal Number of Round played: %d", totalround );
+		System.out.printf("\nNumber of rounds won: %d", roundwon);
+		System.out.printf("\nNumber of rounds loss: %d", roundlost);
 	}
 	
 	public int getOddScore() {
@@ -170,8 +194,10 @@ public class Mora {
 	
 	private int[] computerFingerHistory = new int[6];
 	private int[] playerFingerHistory = new int[6];
+	private int[] computerWonHistory = new int[10];
+	private int[] playerWonHistory = new int[10];
 	private int[][] scoreHistory = new int[6][6];
-	private int[][] winHistory = new int[10][10];
+//	private int[][] winHistory = new int[2][10];
 	
 	
 	

@@ -9,11 +9,13 @@ public class MoraApp {
 		input = new Scanner(System.in);
 
 		int roundWon = 0;
-		int roundLost = 0;
+		int playRound = 0;
+		
+		// Instantiate mora class
+		Mora obj = new Mora();
 		
 		while(true) {
-			// Instantiate mora class
-			Mora obj = new Mora();
+			
 			
 			int gameRound = 0;
 			
@@ -35,7 +37,7 @@ public class MoraApp {
 			}
 			
 			// display winner
-			obj.determineWinner(gameRound);
+			obj.determineWinner(playRound);
 			
 			// print finger history
 			obj.displayFingerHistory();
@@ -52,6 +54,8 @@ public class MoraApp {
 				// display even/odd number count for each player
 				return;
 			}
+			
+			++playRound;
 			
 		}
 
